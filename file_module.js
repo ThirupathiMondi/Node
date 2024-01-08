@@ -40,7 +40,7 @@ function read_append() {
 }
 
 async function appending_data(callback) {
-  var data_to_override = "Adding data to the file for second time";
+  var data_to_override = "This is file content - 2";
 
   const data_existing = await callback();
   data_to_override = data_existing + "\n" + data_to_override;
