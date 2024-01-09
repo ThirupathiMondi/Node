@@ -1,18 +1,15 @@
-const { copyFileSync } = require("fs");
 const http = require("http");
-const server = http.createServer((req, res) => {
-  res.writeHead(200, { "content-type": "text" });
-
-  if (req.url == "/home" && req.method == "GET") {
-    res.end("Welcome to home");
-  } else if (req.url == "/products" && req.method == "GET") {
-    res.end("welcome to products");
-  } else {
-    res.end("Welcome to login");
-  }
+const server = http.createServer((request, response) => {
+  response.writeHead(200, { "content-type": "text" });
+  if (request.url == "/home" && request.method == "GET") {
+    response.end("Data Loaded from home page");
+  } else if (request.url == "/products" && request.method == "GET") {
+    response.end("Data loaded from products page");
+  } else if (request.url == "/orders" && request.method == "GET")
+    response.end("Data loaded from orders page");
+  else response.end("From login page");
 });
-
-const port = 3100;
+const port = 3300;
 server.listen(port, () => {
   console.log("server running at localhost:" + port);
 });

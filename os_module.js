@@ -14,4 +14,3 @@ console.log(os.platform());
 console.log(os.version());
 // User information
 console.log(os.userInfo());
-

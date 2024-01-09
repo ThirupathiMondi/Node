@@ -1,8 +1,8 @@
 var fs = require("fs");
 
 // storing all file names in cur_dir_files ;
-const cur_dir_files = fs.readdirSync("./");
-console.log(cur_dir_files);
+// const cur_dir_files = fs.readdirSync("./");
+// console.log(cur_dir_files);
 
 // Reading data from the file
 // If it does not exist, throws error
@@ -34,21 +34,24 @@ function reading() {
 }
 creating_adding(reading);
 
-function read_append() {
-  const read_data = fs.readFileSync("./sample.txt", "utf-8");
-  return read_data;
-}
-
-async function appending_data(callback) {
+function appending_data(callback) {
   var data_to_override = "This is file content - 2";
 
-  const data_existing = await callback();
-  data_to_override = data_existing + "\n" + data_to_override;
-  fs.writeFile("./sample.txt", data_to_override, () => {
+  /* Appending data to the file manually  */
+
+  // const data_existing = callback();
+  //data_to_override = data_existing + "\n" + data_to_override;
+  // fs.writeFile("./sample.txt", data_to_override, () => {
+  //   console.log("Data appended");
+  //   reading();
+  // });
+
+  // Appending using appendFile function
+  fs.appendFile("./sample.txt", "\n" + data_to_override, () => {
     console.log("Data appended");
-    reading();
+    callback();
   });
 }
 setTimeout(() => {
-  appending_data(read_append);
+  appending_data(reading);
 }, 10);
