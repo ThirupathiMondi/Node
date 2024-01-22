@@ -19,8 +19,12 @@ const server = http.createServer((req, res) => {
   } else if (req.url.startsWith("/products/") && req.method == "DELETE") {
     let id = req.url.split("/")[2];
     let index = pList.findIndex((item) => id == item.id);
-    pList.splice(index, 1);
-    res.end("product deleted : " + id);
+    if (index < 0) {
+      res.end("Please check your product id: Item not found");
+    } else {
+      pList.splice(index, 1);
+      res.end("product deleted : " + id);
+    }
   } else if (req.url.startsWith("/updateProducts/") && req.method == "PUT") {
     let id = req.url.split("/")[2];
     let product = "";
@@ -29,8 +33,13 @@ const server = http.createServer((req, res) => {
     });
     req.on("end", () => {
       let index = pList.findIndex((item) => item.id == id);
-      pList.splice(index, 1, JSON.parse(product));
-      res.end("Item updated");
+      if (index < 0) {
+        console.log("Id not found");
+        res.end("Please check your product ID : Product not found");
+      } else {
+        pList.splice(index, 1, JSON.parse(product));
+        res.end("Item updated");
+      }
     });
   } else {
     res.end("In home");
